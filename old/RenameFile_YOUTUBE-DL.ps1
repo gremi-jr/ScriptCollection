@@ -1,0 +1,1 @@
+﻿Get-ChildItem "D:\3_Unterhaltung\02_Musik\Suits\Suits Music Season 1" | Rename-Item -NewName {$_.Name -replace '\-\w+', ''}
