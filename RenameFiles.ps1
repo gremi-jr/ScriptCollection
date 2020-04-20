@@ -1,15 +1,20 @@
 #################Requiered Inputs#############
-$NameOfSeries = "Game of Thrones"
+$NameOfSeries = "AkameGaKill"
 $SeasonOfSeries = "01"
-$path = "D:\3_Unterhaltung\03_Serien\Game of Thrones\S1"
+$path = "D:\3_Unterhaltung\03_Serien\Akame Ga Kill\"
 ##############################################
 
 
 $fileCounter = 01
 $files = Get-ChildItem -File $path
-Write-Host
+
 
 foreach ($file in $files) {
-   $file | Rename-Item -NewName {$NameOfSeries + "_S$SeasonOfSeries" + "EP$fileCounter" + $file.Extension}
+
+   $counter = "{0:D2}" -f $fileCounter
+
+   #Write-Host $counter
+   $file | Rename-Item -NewName {$NameOfSeries + "-S$SeasonOfSeries" + "EP$counter" + $file.Extension}
+   #Write-Host $NameOfSeries"-S$SeasonOfSeries" "EP$counter" $file.Extension 
    $fileCounter++
 }
