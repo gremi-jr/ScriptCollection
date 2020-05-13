@@ -1,6 +1,6 @@
 #################Requiered Inputs#############
-$SeasonOfSeries = "S01"
-$path = "D:\3_Unterhaltung\03_Serien\One Punch Man\season 1"
+$SeasonOfSeries = "S03"
+$path = "D:\3_Unterhaltung\03_Serien\13 Reasons why\Season3"
 ##############################################
 
 

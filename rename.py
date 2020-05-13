@@ -1,7 +1,7 @@
 import os
 import re
 
-sPath = "D:\\3_Unterhaltung\\03_Serien\\Rick and Morty\\Season3"
+sPath = "D:\\3_Unterhaltung\\Serien\\Assassination Classroom\\S1"
 lFiles = os.listdir(sPath)
 lFiles.sort()
 
