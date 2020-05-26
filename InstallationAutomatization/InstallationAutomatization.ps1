@@ -39,6 +39,8 @@ choco install discord -y
 choco install vmwareworkstation -y
 
 choco install boxcryptor -y
+
+choco install miktex
  
 #Create Shortcut to Desktop
 choco install cmder -y
