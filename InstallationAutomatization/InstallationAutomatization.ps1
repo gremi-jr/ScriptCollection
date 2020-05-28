@@ -40,7 +40,9 @@ choco install vmwareworkstation -y
 
 choco install boxcryptor -y
 
-choco install miktex
+choco install miktex -y
+
+choco install notion -y
  
 #Create Shortcut to Desktop
 choco install cmder -y
