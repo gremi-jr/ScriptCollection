@@ -27,7 +27,7 @@ return
 }
 
 
-; Launch GMail
+; Launch Thunderbird
 {
 !q::Run, E:\Programme\Mozilla Thunderbird\thunderbird.exe ; use alt + Q
 return
@@ -45,6 +45,17 @@ return
     !w::Run, E:\Programme\KeePass Password Safe 2\KeePass.exe
 }
 
+
+;Launch VSCode
+{
+    !c::Run, E:\Programme\Microsoft VS Code\code.exe
+}
+
+
+;Launch VSCode
+{
+    #Enter::Run, C:\Users\Timo Gremler\cmder\cmder.exe
+}
 
 ; Suspend AutoHotKey
 ScrollLock::Suspend ; Win + scrollLock
