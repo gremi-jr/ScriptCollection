@@ -18,6 +18,7 @@ code --install-extension ms-vscode.powershell
 code --install-extension ms-python.python
 code --install-extension ms-vscode-remote.remote-wsl
 code --install-extension ban.spellright
+code --install-extension alireza94.theme-gotham
 
 
 choco install visualstudio2019community -y
@@ -43,6 +44,8 @@ choco install boxcryptor -y
 choco install miktex -y
 
 choco install notion -y
+
+choco install gitkraken -y
  
 #Create Shortcut to Desktop
 choco install cmder -y
