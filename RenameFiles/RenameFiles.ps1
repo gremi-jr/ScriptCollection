@@ -1,6 +1,6 @@
 #################Requiered Inputs#############
-$SeasonOfSeries = "S03"
-$path = "D:\3_Unterhaltung\03_Serien\13 Reasons why\Season3"
+$SeasonOfSeries = "S02"
+$path = "\\192.168.178.12\Mando\Plex\Serien\RWBY\Volume 2"
 ##############################################
 
 

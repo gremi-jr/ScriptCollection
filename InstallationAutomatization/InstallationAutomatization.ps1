@@ -53,3 +53,7 @@ $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$Home\Desktop\Cmder.lnk")
 $Shortcut.TargetPath = "C:\tools\Cmder\Cmder.exe"
 $Shortcut.Save()
+
+#Setting up path enviroment for my scripts
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";E:\2_Computer\Projekte\ScriptCollection\Batch", "User")
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";E:\2_Computer\Projekte\ProjectInitializationAutomation\windows_OS", "User")
