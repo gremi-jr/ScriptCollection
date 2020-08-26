@@ -9,16 +9,14 @@ choco install vscode -y
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
 
 #Code Extensions
-code --install-extension ms-dotnettools.csharp
-code --install-extension donjayamanne.githistory
 code --install-extension james-yu.latex-workshop
 code --install-extension ritwickdey.liveserver
-code --install-extension davidanson.vscode-markdownlint
 code --install-extension ms-vscode.powershell
 code --install-extension ms-python.python
-code --install-extension ms-vscode-remote.remote-wsl
 code --install-extension ban.spellright
 code --install-extension alireza94.theme-gotham
+code --install-extension vscode-icons-team.vscode-icons
+code --install-extension coenraads.bracket-pair-colorizer-2
 
 
 choco install visualstudio2019community -y
