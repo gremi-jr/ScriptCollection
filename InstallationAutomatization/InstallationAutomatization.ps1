@@ -46,6 +46,8 @@ choco install miktex -y
 choco install notion -y
 
 choco install gitkraken -y
+
+choco install wox -y
  
 #Create Shortcut to Desktop
 choco install cmder -y
