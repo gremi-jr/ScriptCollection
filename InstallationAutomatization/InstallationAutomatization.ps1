@@ -46,6 +46,8 @@ choco install notion -y
 choco install gitkraken -y
 
 choco install wox -y
+
+choco install hackfont -y
  
 #Create Shortcut to Desktop
 choco install cmder -y
