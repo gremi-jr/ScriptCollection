@@ -49,7 +49,7 @@ choco install wox -y
 
 choco install hackfont -y
 
-choco install firefox -y
+choco install microsoft-windows-terminal -y
 
 choco install autohotkey -y
  
