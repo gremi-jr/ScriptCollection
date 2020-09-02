@@ -48,6 +48,10 @@ choco install gitkraken -y
 choco install wox -y
 
 choco install hackfont -y
+
+choco install firefox -y
+
+choco install autohotkey -y
  
 #Create Shortcut to Desktop
 choco install cmder -y
