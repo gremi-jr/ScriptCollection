@@ -59,7 +59,7 @@ return
             WinActivate, ahk_id %terminal%
     }
     else
-        Run, wt.exe
+       Run wt.exe
 Return
 }
 
@@ -67,3 +67,7 @@ Return
 ScrollLock::Suspend ; Win + scrollLock
 return
 
+; Switch virtual desktops
+LWin & 1::sendevent {LWin down}{LCtrl down}{Left}{LCtrl up}{LWin up}  ; switch to previous virtual desktop
+
+LWin & 2::sendevent {LWin down}{LCtrl down}{Right}{LCtrl up}{LWin up}
