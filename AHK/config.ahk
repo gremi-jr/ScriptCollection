@@ -46,7 +46,7 @@ return
 }
 
 
-;Launch VSCode
+;Launch Windows Terminal
 {
     #Enter::
     terminal := WinExist("ahk_exe WindowsTerminal.exe")
@@ -71,3 +71,19 @@ return
 LWin & 1::sendevent {LWin down}{LCtrl down}{Left}{LCtrl up}{LWin up}  ; switch to previous virtual desktop
 
 LWin & 2::sendevent {LWin down}{LCtrl down}{Right}{LCtrl up}{LWin up}
+
+{
+    ;Get device ID from DetermineMicId.ahk
+    #F1::
+    SoundSet, +1, MASTER, mute,10 ;10 was my mic id number use the code below the dotted line to find your mic id. you need to replace all 10's  <---------IMPORTANT
+    SoundGet, master_mute, , mute,10
+
+    ToolTip, Mute %master_mute% ;use a tool tip at mouse pointer to show what state mic is after toggle
+    SetTimer, RemoveToolTip, 1000
+    return
+
+    RemoveToolTip:
+    SetTimer, RemoveToolTip, Off
+    ToolTip
+    return
+}
