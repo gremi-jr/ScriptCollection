@@ -25,7 +25,7 @@ for filename in glob.glob('*'):
     filename = os.path.join(path, filename)
     mod_date = datetime.date.fromtimestamp(os.stat(filename).st_mtime)
     
-    if mod_date < (datetime.date.today() - datetime.timedelta(days=7)):
+    if mod_date < (datetime.date.today() - datetime.timedelta(days=30)):
         try:
             if os.path.isfile(filename):
                 logger.info(f'delete {filename}')
