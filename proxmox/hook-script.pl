@@ -1,9 +1,6 @@
 #!/usr/bin/perl -w
 
-# Example hook script for vzdump (--script option)
-# This can also be added as a line in /etc/vzdump.conf
-# e.g. 'script: /usr/local/bin/vzdump-hook-script.pl'
-
+# example hook script for vzdump (--script option)
 
 use strict;
 
@@ -11,9 +8,9 @@ print "HOOK: " . join (' ', @ARGV) . "\n";
 
 my $phase = shift;
 
-if ($phase eq 'job-start' ||
-    $phase eq 'job-end'  ||
-    $phase eq 'job-abort') {
+if ($phase eq 'job-start' || 
+    $phase eq 'job-end'  || 
+    $phase eq 'job-abort') { 
 
     my $dumpdir = $ENV{DUMPDIR};
 
@@ -21,21 +18,20 @@ if ($phase eq 'job-start' ||
 
     print "HOOK-ENV: dumpdir=$dumpdir;storeid=$storeid\n";
 
-    # do what you want
+    # do what you want 
 
-} elsif ($phase eq 'backup-start' ||
+} elsif ($phase eq 'backup-start' || 
 	 $phase eq 'backup-end' ||
-	 $phase eq 'backup-abort' ||
-	 $phase eq 'log-end' ||
+	 $phase eq 'backup-abort' || 
+	 $phase eq 'log-end' || 
 	 $phase eq 'pre-stop' ||
-	 $phase eq 'pre-restart' ||
-	 $phase eq 'post-restart') {
+	 $phase eq 'pre-restart') {
 
     my $mode = shift; # stop/suspend/snapshot
 
     my $vmid = shift;
 
-    my $vmtype = $ENV{VMTYPE}; # lxc/qemu
+    my $vmtype = $ENV{VMTYPE}; # openvz/qemu
 
     my $dumpdir = $ENV{DUMPDIR};
 
@@ -43,29 +39,50 @@ if ($phase eq 'job-start' ||
 
     my $hostname = $ENV{HOSTNAME};
 
-    # target is only available in phase 'backup-end'
-    my $target = $ENV{TARGET};
+    # tarfile is only available in phase 'backup-end'
+    my $tarfile = $ENV{TARFILE};
 
     # logfile is only available in phase 'log-end'
-    my $logfile = $ENV{LOGFILE};
+    my $logfile = $ENV{LOGFILE}; 
 
-    print "HOOK-ENV: vmtype=$vmtype;dumpdir=$dumpdir;storeid=$storeid;hostname=$hostname;target=$target;logfile=$logfile\n";
+    print "HOOK-ENV: vmtype=$vmtype;dumpdir=$dumpdir;storeid=$storeid;hostname=$hostname;tarfile=$tarfile;logfile=$logfile\n";
 
     # example: copy resulting backup file to another host using scp
     if ($phase eq 'backup-end') {
-        #system ("scp $target backup-host:/backup-dir") == 0 ||
-        #    die "copy tar file to backup-host failed";
+    	#system ("scp $tarfile backup-host:/backup-dir") == 0 ||
+    	#    die "copy tar file to backup-host failed";
+       
+        #1. Verschlüssel neues Backup
         `gpg -r timogremler -e $target`;
-        `rm $target`;
-
+        #2. move verschlüseltes backup
+        $source_file = '/mnt/pve/USB_Festplatte/Daily_Festplatte/dump/' . $target . '.gpg';
+        $dest_file = 'mnt/pve/FreeNAS/dump/' . $target . '.gpg';
+        move($source_file,$dest_file);
+        #3. Vergleiche beide verzeichnisse 
+        @files_source_dir = </home/timo/temp/*>;
+        @files_dest_dir = </home/timo/temp2/*>;
+        foreach my $file_in_source_dir (@files_source_dir) {
+          #print $file_in_source_dir . "\n";
+          $file_in_source_dir = (split '/', $file_in_source_dir)[-1];
+          foreach my $file_in_dest_dir (@files_dest_dir) {
+            #print $file_in_dest_dir . "\n";
+            $file_in_dest_dir = (split '/',$file_in_dest_dir)[-1];
+            if ($file_in_source_dir eq $file_in_dest_dir) {
+              print 'same Files';
+            }
+          }
+        }
+ 
+        #4. Löschen von überflüssigen backups im NAS
+ 
     }
 
     # example: copy resulting log file to another host using scp
     if ($phase eq 'log-end') {
-        #system ("scp $logfile backup-host:/backup-dir") == 0 ||
-        #    die "copy log file to backup-host failed";
+    	#system ("scp $logfile backup-host:/backup-dir") == 0 ||
+    	#    die "copy log file to backup-host failed";
     }
-
+    
 } else {
 
     die "got unknown phase '$phase'";
@@ -73,3 +90,4 @@ if ($phase eq 'job-start' ||
 }
 
 exit (0);
+
