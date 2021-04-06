@@ -3,6 +3,7 @@
 # example hook script for vzdump (--script option)
 
 use strict;
+use File::Copy;
 
 print "HOOK: " . join (' ', @ARGV) . "\n";
 
@@ -16,7 +17,7 @@ if ($phase eq 'job-start' ||
 
     my $storeid = $ENV{STOREID};
 
-    print "HOOK-ENV: dumpdir=$dumpdir;storeid=$storeid\n";
+    #print "HOOK-ENV: dumpdir=$dumpdir;storeid=$storeid\n";
 
     # do what you want 
 
@@ -45,7 +46,7 @@ if ($phase eq 'job-start' ||
     # logfile is only available in phase 'log-end'
     my $logfile = $ENV{LOGFILE}; 
 
-    print "HOOK-ENV: vmtype=$vmtype;dumpdir=$dumpdir;storeid=$storeid;hostname=$hostname;tarfile=$tarfile;logfile=$logfile\n";
+    #print "HOOK-ENV: vmtype=$vmtype;dumpdir=$dumpdir;storeid=$storeid;hostname=$hostname;tarfile=$tarfile;logfile=$logfile\n";
 
     # example: copy resulting backup file to another host using scp
     if ($phase eq 'backup-end') {
@@ -53,19 +54,26 @@ if ($phase eq 'job-start' ||
     	#    die "copy tar file to backup-host failed";
        
         #1. Verschlüssel neues Backup
-	print "---Start encryption---";
+	print "---Start encryption---" . "\n";
         `gpg -r timogremler -e $tarfile`;
-	print "---Encryption finished---";
+	print "---Encryption finished---" . "\n";
         #2. move verschlüseltes backup
-        my $source_file = "/root/backup/" . $tarfile . ".gpg";
-	my $dest_file = "/mnt/pve/FreeNAS/dump/" . $tarfile . ".gpg";
-        move($source_file,$dest_file) or die "The move operation failed: $!";
-        #3. Vergleiche beide verzeichnisse 
-        @files_source_dir = </mnt/pve/USB_Festplatte/Daily_Backup/dump/*>;
-        @files_dest_dir = </mnt/pve/FreeNAS/dump/*>;
+	# $tarfile enthält den ganzen Pfad
+        my $source_file = $tarfile . ".gpg";
+	my $dest_file = $tarfile . ".gpg";
+	$dest_file = (split '/',$dest_file)[-1]; #Holen des Dateinamen 
+	$dest_file = "/mnt/pve/KEKW/dump/" . $dest_file; #Schreiben des ganzen Pfades in Variable
+	print "$source_file" . "\n";
+	print "$dest_file" . "\n";
+        print "---Move file---" . "\n";
+	move($source_file, $dest_file) or die "The move operation failed: $!";
+        print "---Move ended---" . "\n";
+	#3. Vergleiche beide verzeichnisse
+        my @files_source_dir = </mnt/pve/USB_Festplatte/Daily_Backup/dump/*>;
+	my @files_dest_dir = </mnt/pve/KEKW/dump/*>;
         foreach my $file_in_source_dir (@files_source_dir) {
           #print $file_in_source_dir . "\n";
-          $file_in_source_dir = (split '/', $file_in_source_dir)[-1];
+          $file_in_source_dir = (split '/', $file_in_source_dir)[-1] . ".gpg";
           foreach my $file_in_dest_dir (@files_dest_dir) {
             #print $file_in_dest_dir . "\n";
             $file_in_dest_dir = (split '/',$file_in_dest_dir)[-1];
@@ -73,6 +81,7 @@ if ($phase eq 'job-start' ||
               print 'same Files';
             }else {
 	    	print "Diese Dateien sind im nas mehr: " . $file_in_dest_dir;
+		#unlink $file_in_dest_dir
 	    }
           }
         }
