@@ -1,10 +1,7 @@
 Set-ExecutionPolicy AllSigned
 
-#Installed Choco
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-
 #VS Code
-choco install vscode -y
+winget install vscode
 #Reload Path
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
 
@@ -19,47 +16,40 @@ code --install-extension vscode-icons-team.vscode-icons
 code --install-extension coenraads.bracket-pair-colorizer-2
 
 
-choco install visualstudio2019community -y
+winget install Microsoft.VisualStudio.2019.Community 
 
-choco install notepadplusplus -y
+winget install notepad++
 
-choco install firefox -y
+winget install firefox 
 
-choco install thunderbird -y
+winget install thunderbird 
 
-choco install steam -y
+winget install steam 
 
-choco install keepass -y
+winget install 1password 
 
-choco install git -y
+winget install git 
 
-choco install discord -y 
+winget install discord 
 
-choco install vmwareworkstation -y
+winget install vmwareworkstation 
 
-choco install boxcryptor -y
+#winget install boxcryptor 
 
-choco install miktex -y
+#winget install miktex 
 
-choco install notion -y
+#winget install notion 
 
-choco install gitkraken -y
+winget install gitkraken 
 
-choco install wox -y
+#winget install wox 
 
-choco install hackfont -y
+#winget install hackfont 
 
-choco install microsoft-windows-terminal -y
+#winget install microsoft-windows-terminal 
 
-choco install autohotkey -y
- 
-#Create Shortcut to Desktop
-choco install cmder -y
-$WshShell = New-Object -comObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut("$Home\Desktop\Cmder.lnk")
-$Shortcut.TargetPath = "C:\tools\Cmder\Cmder.exe"
-$Shortcut.Save()
+#winget install autohotkey 
 
 #Setting up path enviroment for my scripts
-[Environment]::SetEnvironmentVariable("Path", $env:Path + ";E:\2_Computer\Projekte\ScriptCollection\Batch", "User")
-[Environment]::SetEnvironmentVariable("Path", $env:Path + ";E:\2_Computer\Projekte\ProjectInitializationAutomation\windows_OS", "User")
+#[Environment]::SetEnvironmentVariable("Path", $env:Path + ";E:\2_Computer\Projekte\ScriptCollection\Batch", "User")
+#[Environment]::SetEnvironmentVariable("Path", $env:Path + ";E:\2_Computer\Projekte\ProjectInitializationAutomation\windows_OS", "User")
