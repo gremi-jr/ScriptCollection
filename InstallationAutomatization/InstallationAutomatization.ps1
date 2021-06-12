@@ -47,6 +47,10 @@ winget install Microsoft.WindowsTerminal
 
 winget install ubuntu
 
+winget install Spotify.Spotify
+
+winget install Microsoft.Office
+
 #winget install autohotkey 
 
 #Setting up path enviroment for my scripts
@@ -63,6 +67,12 @@ New-PSDrive -Name "Archiv" -PSProvider "FileSystem" -Root "\\192.168.178.13\Arch
 
 Net Use
 
+Write-Host "----------------Gaming? (y/n)----------------"
+$input = Read-Host
 
+if($input -eq "y"){
+    winget install Valve.Steam
 
+    winget install ElectronicArts.EADesktop
+}
 
