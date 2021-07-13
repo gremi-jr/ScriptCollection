@@ -14,6 +14,14 @@ code --install-extension ban.spellright
 code --install-extension alireza94.theme-gotham
 code --install-extension vscode-icons-team.vscode-icons
 code --install-extension coenraads.bracket-pair-colorizer-2
+code --install-extension yzane.markdown-pdf
+code --install-extension piotrpalarz.vscode-gitignore-generator
+code --install-extension mhutchie.git-graph
+code --install-extension jolaleye.horizon-theme-vscode
+code --install-extension wayou.vscode-todo-highlight
+code --install-extension gruntfuggly.todo-tree
+
+
 
 winget install Microsoft.VisualStudio.2019.Community 
 
